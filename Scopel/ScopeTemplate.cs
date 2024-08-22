@@ -1,7 +1,7 @@
 ﻿namespace Scopel;
 public class ScopeTemplate
 {
-    event Action<MessageTemplate> EmmitMessage;
+    private event Action<MessageTemplate> EmmitMessage;
 
     internal void AddObject(ObjectTemplate obj)
     {
