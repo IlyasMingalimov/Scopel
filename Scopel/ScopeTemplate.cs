@@ -28,9 +28,9 @@ public class ScopeTemplate
         }
 
         foreach(var internalScope in internalScopes) 
-        {
+        { 
             if(!internalScope.IsRun)
-                await internalScope.Run();
+            await internalScope.Run();
         }
     }
 }
