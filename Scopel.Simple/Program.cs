@@ -1,9 +1,7 @@
-﻿using Scopel.Simple;
+﻿using Scopel;
+using Scopel.Simple;
 
-var scope = new MainScope();
-var helloWorld = new HelloWordObject();
-var message = new HelloWordMessage("Hello World");
-
-await scope.AddObject(helloWorld);
-await scope.SetupMessage(message);
-await scope.Run();
+var builder = new ScopeBuilder<MainScope>();
+var objects = new List<ObjectTemplate> { new HelloWordObject() };
+var messages = new List<MessageTemplate> { new HelloWordMessage() };
+builder.RunScope(messages, objects);
