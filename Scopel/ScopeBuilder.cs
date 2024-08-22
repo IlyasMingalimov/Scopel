@@ -5,6 +5,14 @@ public class ScopeBuilder<Scope> where Scope : ScopeTemplate, new()
 
     public void RunScope(List<MessageTemplate> messages, List<ObjectTemplate> objects) 
     {
-        scope.Run();
+        foreach (var obj in objects)
+        {
+            scope.AddObject(obj);
+        }
+
+        foreach (var message in messages) 
+        {
+            scope.AddMessage(message);
+        }
     }
 }
