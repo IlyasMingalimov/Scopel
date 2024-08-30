@@ -1,2 +1,2 @@
 ﻿namespace Scopel;
-public class MessageTemplate{}
+public abstract class MessageTemplate{}

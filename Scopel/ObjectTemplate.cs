@@ -1,8 +1,7 @@
 ﻿namespace Scopel;
 public abstract class ObjectTemplate
 {
-    private event Action<MessageTemplate> SendMessageFunc;
-    internal void SubscribeToMessage(Action<MessageTemplate> func) => SendMessageFunc += func;
-    public abstract void ReceiveMessage(MessageTemplate message);
-    public void SendMessage(MessageTemplate message) => SendMessageFunc?.Invoke(message);
+	internal event Action<MessageTemplate> Sending;
+	public void Send(MessageTemplate message) => Sending?.Invoke(message);
+	public abstract void Receive(MessageTemplate message);
 }

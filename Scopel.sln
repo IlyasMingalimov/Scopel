@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scopel", "Scopel\Scopel.csproj", "{624C9580-C723-4EF1-911B-6BABB737CAC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scopel", "Scopel\Scopel.csproj", "{624C9580-C723-4EF1-911B-6BABB737CAC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scopel.Simple", "Scopel.Simple\Scopel.Simple.csproj", "{1DB9193A-4512-4BD0-B8BB-8107F987FEEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scopel.Examples", "Scopel.Examples\Scopel.Examples.csproj", "{9C9E4D80-F575-4849-BF92-8F0981AA318F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{624C9580-C723-4EF1-911B-6BABB737CAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624C9580-C723-4EF1-911B-6BABB737CAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624C9580-C723-4EF1-911B-6BABB737CAC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DB9193A-4512-4BD0-B8BB-8107F987FEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DB9193A-4512-4BD0-B8BB-8107F987FEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DB9193A-4512-4BD0-B8BB-8107F987FEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DB9193A-4512-4BD0-B8BB-8107F987FEEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C9E4D80-F575-4849-BF92-8F0981AA318F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C9E4D80-F575-4849-BF92-8F0981AA318F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C9E4D80-F575-4849-BF92-8F0981AA318F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C9E4D80-F575-4849-BF92-8F0981AA318F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
