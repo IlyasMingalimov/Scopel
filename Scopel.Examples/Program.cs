@@ -12,7 +12,7 @@ internal class Program
 	{
 		var sender = new HelloWordSenderObject();
 		var recipient = new HelloWordRecipientObject();
-		var objs = new List<ObjectTemplate> { sender, recipient };
+		var objs = new List<IObjectTemplate> { sender, recipient };
 
 		using (var scope = new MainScope(objs))
 			sender.Hello("Jonh");

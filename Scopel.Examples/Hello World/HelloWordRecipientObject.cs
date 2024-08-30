@@ -1,9 +1,9 @@
 ﻿namespace Scopel.Examples.HelloWorld;
-public class HelloWordRecipientObject : ObjectTemplate
+public class HelloWordRecipientObject : IObjectRecipientTemplate
 {
-	public override void Receive(MessageTemplate message)
+	public void Receive(IMessageTemplate message)
 	{
-		if(message is HelloWordMessage helloMessage) 
+		if(message is HelloWordMessage helloMessage)
 			Console.WriteLine(helloMessage.Value);
 	}
 }

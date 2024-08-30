@@ -1,15 +1,18 @@
 ﻿namespace Scopel;
 public abstract class ScopeTemplate : IDisposable
 {
-	private event Action<MessageTemplate> EmmitMessage;
-	public ScopeTemplate(IEnumerable<ObjectTemplate> objs) 
+	private event Action<IMessageTemplate>? EmmitMessage;
+	public ScopeTemplate(IEnumerable<IObjectTemplate> objs) 
 	{
 		foreach (var obj in objs) 
 		{
-			obj.Sending += Transmit;
-			EmmitMessage += obj.Receive;
+			if(obj is ObjectSenderTemplate sender)
+				sender.Sending += Transmit;
+
+			if(obj is IObjectRecipientTemplate recipient)
+				EmmitMessage += recipient.Receive;
 		}
 	}
-	internal void Transmit(MessageTemplate message) => EmmitMessage?.Invoke(message);
+	internal void Transmit(IMessageTemplate message) => EmmitMessage?.Invoke(message);
 	public abstract void Dispose();
 }
