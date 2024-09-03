@@ -1,6 +1,7 @@
 ﻿using Scopel;
 using Scopel.Examples.EmitClasses;
 using Scopel.Examples.HelloWorld;
+using Scopel.Examples.Scopes;
 
 internal class Program
 {
@@ -12,8 +13,10 @@ internal class Program
 		Console.WriteLine("Emit new Objects Example");
 		Emit();
 		Console.WriteLine("-------------------");
+		Console.WriteLine("Create Child Scope");
+		CreateChildScope();
+		Console.WriteLine("-------------------");
 	}
-
 	private static void HelloWorld() 
 	{
 		var sender = new HelloWordSenderObject();
@@ -25,7 +28,6 @@ internal class Program
 
 		Task.Delay(1000).Wait();
 	}
-
 	private static void Emit() 
 	{
 		var emitter = new Emitter();
@@ -35,6 +37,13 @@ internal class Program
 		using var scope = new EmitScope(objs);
 		emitter.EmitObjects();
 		starter.Start();
+		Task.Delay(1000).Wait();
+	}
+	private static void CreateChildScope()
+	{
+		var objs = new List<IObjectTemplate>();
+		using (var scope = new MasterScope(objs))
+			scope.EmitChildScope();
 		Task.Delay(1000).Wait();
 	}
 }

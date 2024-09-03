@@ -1,5 +1,5 @@
 ﻿namespace Scopel;
-public abstract class ScopeTemplate : IDisposable
+public abstract class ScopeTemplate : ObjectSenderTemplate, IObjectRecipientTemplate, IDisposable
 {
 	private event Action<IMessageTemplate>? EmmitMessage;
 	public ScopeTemplate(IEnumerable<IObjectTemplate> objs) 
@@ -8,6 +8,7 @@ public abstract class ScopeTemplate : IDisposable
 		{
 			AddNewObject(obj);
 		}
+		EmmitMessage += Receive;
 	}
 	internal void Transmit(IMessageTemplate message) => EmmitMessage?.Invoke(message);
 	internal void AddNewObject(IObjectTemplate obj) 
@@ -22,4 +23,10 @@ public abstract class ScopeTemplate : IDisposable
 			emitter.EmitObject += AddNewObject;
 	}
 	public abstract void Dispose();
+	protected void Emit<Scope>(Scope scope) where Scope : ScopeTemplate 
+	{
+		EmmitMessage += scope.Receive;
+		scope.Sending += Transmit;
+	}
+	public virtual void Receive(IMessageTemplate message) { }
 }
