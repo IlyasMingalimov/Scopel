@@ -3,49 +3,64 @@
 namespace Scopel.Examples.Life;
 public class LIfeObject : ObjectSenderTemplate, IObjectRecipientTemplate
 {
-    private Guid guid;
-    private string name;
-    public LIfeObject() 
-    {
-        guid = Guid.NewGuid();
-        name = GenerateRandomName();
+    public enum LifeState 
+    { 
+        Life,
+        Dead
     }
 
-    public void LogInit() 
+    public readonly Guid guid;
+    public readonly string name;
+    public readonly DateTime birthDate;
+    private LifeState state;
+    private static readonly Lazy<Random> random = new();
+    public Tuple<int, int> NewLifeRandom = new (370, 465);
+    public Tuple<int, int> DeadRandom = new(1000, 1500);
+    public LIfeObject() 
     {
-        Send(new LogMessage($"life created. Name : {name}, guid {guid}"));
+        state = LifeState.Life;
+        guid = Guid.NewGuid();
+        name = NameGenerator.GenerateRandomName();
+        birthDate = DateTime.Now;
+        Task.Delay(random.Value.Next(NewLifeRandom.Item1, NewLifeRandom.Item2)).ContinueWith(t => CreateNewLife());
+        Task.Delay(random.Value.Next(DeadRandom.Item1, DeadRandom.Item2)).ContinueWith(t => Dead());
+        Eat();
     }
 
     public void Receive(IMessageTemplate message)
     {
-        
+        if(message is EatAproveMessage aproveMessage) 
+        {
+            if(aproveMessage.Guid == guid && !aproveMessage.ok)
+                state = LifeState.Dead;
+        }
     }
 
-    private static string GenerateRandomName() 
+    private async void Dead() 
     {
-        var random = new Random();
-        var addName3 = random.Next(5);
-        if (addName3 == 3)
-            return Names.RandomName(random) + " " + Names2.RandomName(random) + " " + Names3.RandomName(random);
-        else return Names.RandomName(random) + " " + Names2.RandomName(random);
+        state = LifeState.Dead;
+        Send(new DeadMessage(this));
     }
 
-    private static string[] Names => ["Noah", "Oliver", "George", "Arthur", "Muhammad", "Leo", "Harry", "Oscar", "Archie", 
-        "Henry", "Olivia", "Amelia", "Isla", "Ava", "Ivy", "Freya", "Lily", "Florence", "Mia", "Willow", "Alma", "Blind", "Alice",
-        "Dudley", "Bonnie", "James", "Boudicca", "Jonathan", "Cailin", "Lloyd", "Dee",  "Norman", "Rose", "Clark", "Ginger", "Chester", "Fleur",
-        "Elton", "Claribel", "Marvin", "Honora", "Jameson", "Leonora", "Montague", "Lupita",  "Olivier", "Milou", "KaneWendy", "Logan"];
-
-    private static string[] Names2 => ["Dunce", "Quincy", "Durham", "Raleigh", "Dyson", "Ralphs", "Eddington", "Ramacey", "Erickson", "Russel",
-        "Evans", "Ryder", "Faber", "Salisburry", "Gilbert", "Wainwright", "Harrison", "Winter"];
-
-    private static string[] Names3 => ["jr", "I", "II", "III", "IV", "V"];
-
-}
-
-public static class stringArrayExtension 
-{
-    public static string RandomName(this string[] names, Random random)
+    private async void CreateNewLife() 
     {
-        return names[random.Next(names.Length)];
+        if (state == LifeState.Dead)
+            return;
+
+        var chance = random.Value.Next(0, 2);
+
+        if(chance != 0)
+            Send(new CreateLifeMessage());
+
+        _ = Task.Delay(random.Value.Next(NewLifeRandom.Item1, NewLifeRandom.Item2)).ContinueWith(t => CreateNewLife());
+    }
+
+    private void Eat() 
+    {
+        if (state == LifeState.Dead)
+            return;
+
+        Send(new EatMessage(guid));
+        Task.Delay(1200).ContinueWith(t => Eat());
     }
 }

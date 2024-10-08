@@ -51,7 +51,7 @@ internal class Program
 		Task.Delay(1000).Wait();
 	}
 
-	private static void Life() 
+	private static async void Life() 
 	{
 		var earth = new Earth();
 		var objs = new List<IObjectTemplate> { earth };
@@ -59,7 +59,7 @@ internal class Program
 		using (var life = new Life(objs)) 
 		{
             earth.StartLife();
-			Task.Delay(9999).Wait();
+			Task.Delay(99999).Wait();
 			earth.EndLife();
             Console.WriteLine(life.Logs);
         }

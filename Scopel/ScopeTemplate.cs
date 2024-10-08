@@ -22,6 +22,19 @@ public abstract class ScopeTemplate : ObjectSenderTemplate, IObjectRecipientTemp
 		if (obj is ObjectEmitterTemplate emitter)
 			emitter.EmitObject += AddNewObject;
 	}
+
+	protected internal void Unsubscribe(IObjectTemplate obj) 
+	{
+        if (obj is ObjectSenderTemplate sender)
+            sender.Sending -= Transmit;
+
+        if (obj is IObjectRecipientTemplate recipient)
+            EmmitMessage -= recipient.Receive;
+
+        if (obj is ObjectEmitterTemplate emitter)
+            emitter.EmitObject -= AddNewObject;
+    }
+
 	public abstract void Dispose();
 	protected void Emit<Scope>(Scope scope) where Scope : ScopeTemplate 
 	{
